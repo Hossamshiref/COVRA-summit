@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="ceo@covra.site"
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#0f2744] focus:outline-none text-sm"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#0f2744] focus:outline-none text-sm text-gray-900 bg-white"
                 required
               />
             </div>
@@ -73,7 +73,7 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter password"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#0f2744] focus:outline-none text-sm pr-12"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#0f2744] focus:outline-none text-sm pr-12 text-gray-900 bg-white"
                   required
                 />
                 <button
