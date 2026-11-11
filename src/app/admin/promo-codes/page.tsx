@@ -219,7 +219,7 @@ export default function AdminPromoCodesPage() {
                   value={form.code}
                   onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
                   placeholder="SUMMIT20"
-                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm font-mono focus:outline-none focus:border-[#0f2744]"
+                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm font-mono focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                 />
               </div>
 
@@ -234,7 +234,7 @@ export default function AdminPromoCodesPage() {
                         discount_type: e.target.value as "percentage" | "fixed",
                       })
                     }
-                    className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744]"
+                    className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                   >
                     <option value="percentage">Percentage %</option>
                     <option value="fixed">Fixed (EGP)</option>
@@ -250,7 +250,7 @@ export default function AdminPromoCodesPage() {
                     onChange={(e) =>
                       setForm({ ...form, discount_value: Number(e.target.value) })
                     }
-                    className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744]"
+                    className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                   />
                 </div>
               </div>
@@ -265,7 +265,7 @@ export default function AdminPromoCodesPage() {
                   value={form.max_uses}
                   onChange={(e) => setForm({ ...form, max_uses: e.target.value })}
                   placeholder="Unlimited"
-                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744]"
+                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                 />
               </div>
 

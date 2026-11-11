@@ -255,7 +255,7 @@ export default function AdminSpeakersPage() {
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744]"
+                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                 />
               </div>
 
@@ -265,7 +265,7 @@ export default function AdminSpeakersPage() {
                   required
                   value={form.role}
                   onChange={(e) => setForm({ ...form, role: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744]"
+                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                 />
               </div>
 
@@ -275,7 +275,7 @@ export default function AdminSpeakersPage() {
                   rows={3}
                   value={form.bio}
                   onChange={(e) => setForm({ ...form, bio: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744]"
+                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                 />
               </div>
 
@@ -284,7 +284,7 @@ export default function AdminSpeakersPage() {
                 <input
                   value={form.badge}
                   onChange={(e) => setForm({ ...form, badge: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744]"
+                  className="w-full px-3 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0f2744] text-gray-900 bg-white"
                 />
               </div>
 
