@@ -12,36 +12,26 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-const SPEAKERS = [
-  {
-    name: "Dr. Tarek Mansour",
-    role: "Head of AI Security Research, COVRA",
-    bio: "Ex-Google Brain researcher specializing in neural vulnerability detection and LLM-assisted reverse engineering.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-    badge: "Keynote",
-  },
-  {
-    name: "Youssef Ibrahim",
-    role: "Chief Technology Officer & Co-Founder",
-    bio: "Pioneering autonomous security agent workflows and zero-day SAST/DAST developer automation.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
-    badge: "Product Reveal",
-  },
-  {
-    name: "Salma El-Sayed",
-    role: "VP of Cyber Defense, Securica MEA",
-    bio: "Renowned red-teamer & speaker across Black Hat and DefCon. Leading cloud-native threat remediation.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
-    badge: "Technical Track",
-  },
-  {
-    name: "Omar Farouk",
-    role: "Staff DevSecOps Engineer, FinTech Cloud",
-    bio: "Architecting high-throughput CI/CD security pipelines across banking and enterprise infrastructures.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
-    badge: "Technical Track",
-  },
-];
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+async function getSpeakers() {
+  const { data, error } = await supabase
+    .from("speakers")
+    .select("*")
+    .eq("is_active", true)
+    .order("sort_order", { ascending: true });
+
+  if (error) {
+    console.error("Failed to load speakers:", error.message);
+    return [];
+  }
+  return data || [];
+}
 
 const SPONSORS = [
   { name: "Creativa Giza", tier: "Host Partner" },
@@ -51,7 +41,8 @@ const SPONSORS = [
   { name: "NextWave Ventures", tier: "Ecosystem Partner" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const speakers = await getSpeakers();
   return (
     <div className="bg-white text-gray-900">
       {/* Hero */}
@@ -191,46 +182,62 @@ export default function HomePage() {
       </section>
 
       {/* Speakers */}
-      <section id="speakers" className="py-24 bg-gray-50 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="text-sm font-semibold text-teal-600 mb-3">SPEAKERS</div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Learn from the best in the field
-            </h2>
-            <p className="text-lg text-gray-600">
-              Industry leaders and researchers shaping the future of AI-powered security.
-            </p>
-          </div>
+<section id="speakers" className="py-24 bg-gray-50 scroll-mt-20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="text-sm font-semibold text-teal-600 mb-3">SPEAKERS</div>
+      <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        Learn from the best in the field
+      </h2>
+      <p className="text-lg text-gray-600">
+        Industry leaders and researchers shaping the future of AI-powered security.
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SPEAKERS.map((speaker) => (
-              <div
-                key={speaker.name}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
-              >
-                <div className="aspect-[4/5] relative overflow-hidden">
-                  <img
-                    src={speaker.image}
-                    alt={speaker.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md bg-white/95 text-xs font-semibold text-[#0f2744]">
-                      {speaker.badge}
-                    </span>
-                  </div>
+    {speakers.length === 0 ? (
+      <p className="text-center text-gray-500">Speakers will be announced soon.</p>
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {speakers.map((speaker: any) => (
+          <div
+            key={speaker.id}
+            className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+          >
+            <div className="aspect-[4/5] relative overflow-hidden bg-gray-100">
+              {speaker.image_url ? (
+                <img
+                  src={speaker.image_url}
+                  alt={speaker.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                  No photo
                 </div>
-                <div className="p-5">
-                  <h3 className="font-semibold text-gray-900 text-lg">{speaker.name}</h3>
-                  <p className="text-sm text-teal-600 font-medium mt-1">{speaker.role}</p>
-                  <p className="text-sm text-gray-500 mt-3 leading-relaxed">{speaker.bio}</p>
+              )}
+              {speaker.badge && (
+                <div className="absolute top-3 left-3">
+                  <span className="px-2.5 py-1 rounded-md bg-white/95 text-xs font-semibold text-[#0f2744]">
+                    {speaker.badge}
+                  </span>
                 </div>
-              </div>
-            ))}
+              )}
+            </div>
+            <div className="p-5">
+              <h3 className="font-semibold text-gray-900 text-lg">{speaker.name}</h3>
+              <p className="text-sm text-teal-600 font-medium mt-1">{speaker.role}</p>
+              {speaker.bio && (
+                <p className="text-sm text-gray-500 mt-3 leading-relaxed line-clamp-3">
+                  {speaker.bio}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
 
       {/* Tickets */}
       <section className="py-24">
